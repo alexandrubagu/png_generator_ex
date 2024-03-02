@@ -1,18 +1,21 @@
 defmodule PngGenerator do
   @moduledoc """
   Documentation for `PngGenerator`.
+
+  https://www.erlang.org/docs/17/man/egd
   """
 
-  @doc """
-  Hello world.
+  def run do
+    image = :egd.create(500, 500)
+    black = :egd.color(:black)
 
-  ## Examples
+    :egd.rectangle(image, {0, 0}, {500, 500}, black)
+    :egd.line(image, {20, 0}, {20, 20}, black)
 
-      iex> PngGenerator.hello()
-      :world
+    image
+    |> :egd.render()
+    |> :egd.save("output.png")
 
-  """
-  def hello do
-    :world
+    :egd.destroy(image)
   end
 end
